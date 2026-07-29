@@ -6,8 +6,6 @@ name: Node.js CI
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   build:
@@ -34,7 +32,6 @@ jobs:
 
     - name: Build Font
       shell: bash
-      working-directory: iosevka
       run: |
           npm install
           npm run build -- ttf::IosevkaCustom
