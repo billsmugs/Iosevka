@@ -22,9 +22,26 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v6
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: lts/*
         cache: 'npm'
-    - run: npm install
-    - run: npm run build -- ttf::IosevkaCustom
+    - name: Install ttfautohint
+      shell: bash
+      run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends ttfautohint
+
+    - name: Build Font
+      shell: bash
+      working-directory: iosevka
+      run: |
+          npm install
+          npm run build -- ttf::IosevkaCustom
+
+    # Upload build artifacts
+    - name: Upload Font Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: Iosevka-ttf
+        path: iosevka/dist/TTF
