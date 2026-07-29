@@ -41,4 +41,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Iosevka-ttf
-        path: **/*.ttf
+        path: ./**/*.ttf
